@@ -2,11 +2,16 @@
 
 using namespace std;
 
-//Node dasar untuk linked list, queue, dan stack paket
+//Node dasar linkedlist untuk queue
 struct NodePaket {
 int idPaket;
 double bobot;
 NodePaket* next; // Pointer untuk menghubungkan ke node selanjutnya
+};
+
+struct NodeRute { // Node dasar linkedlist untuk stack
+    char namaTujuan;
+    NodeRute* next;
 };
 
 class CustomQueue {
@@ -98,6 +103,29 @@ class CustomQueue {
             saatini = saatini->next;
         }
         cout << "NULL" << endl;
+    }
+};
+
+class CustomStack {
+    private:
+    NodeRute* top; //Pointer top untuk menunjuk ke elemen paling atas
+
+    public:
+    CustomStack() {
+        top = nullptr; //inisialisasi stack kosong
+    }
+    // Fungsi untuk cek apakah stack kosong
+    bool isEmpty() {
+        return top == nullptr;
+    }
+
+    // Fungsi push untuk menambah nilai atau elemen ke posisi paling atas (head/top)
+    void push(char namaTujuan) {
+        NodeRute* newnode = new NodeRute();
+        newnode->namaTujuan = namaTujuan;
+        newnode->next = top;
+        top = newnode;
+        cout << "Rute " << namaTujuan << " berhasil di tambahkan ke Stack" << endl;
     }
 };
 
