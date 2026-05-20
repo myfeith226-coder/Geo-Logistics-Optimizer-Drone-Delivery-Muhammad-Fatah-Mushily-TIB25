@@ -127,6 +127,17 @@ class CustomStack {
         top = newnode;
         cout << "Rute " << namaTujuan << " berhasil di tambahkan ke Stack" << endl;
     }
+
+    void pop() {
+        if(isEmpty()) {
+            cout << "Tidak ada rute yang dapat di lacak!" << endl;
+            return; 
+        }
+        NodeRute* temp = top; // Simpan alamat top
+        top = top->next; // Geser top ke node di bawahnya
+        cout << "Rute " << top->namaTujuan << " berhasil di hapus!" << endl;
+        delete temp; // Membersihkan memori dari node yang di hapus 
+    }
 };
 
 int main() {
