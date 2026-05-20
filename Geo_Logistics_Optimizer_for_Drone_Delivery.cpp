@@ -139,11 +139,19 @@ class CustomStack {
         delete temp; // Membersihkan memori dari node yang di hapus 
     }
 
+    // Fungsi untuk melihat riwayat terakhir rute
     void peek() {
         if(isEmpty()) {
             cout << "Riwayat masih kosong!" << endl;
         }
         cout << "Riwayat rute terakhir: " << top->namaTujuan << endl;
+    }
+
+    // Destructor untuk membersihkan sisa memori dari objek yang hancur (sudah di hapus)
+    ~CustomStack() {
+        if(!isEmpty()) {
+            pop();
+        }
     }
 };
 
