@@ -138,6 +138,13 @@ class CustomStack {
         cout << "Rute " << top->namaTujuan << " berhasil di hapus!" << endl;
         delete temp; // Membersihkan memori dari node yang di hapus 
     }
+
+    void peek() {
+        if(isEmpty()) {
+            cout << "Riwayat masih kosong!" << endl;
+        }
+        cout << "Riwayat rute terakhir: " << top->namaTujuan << endl;
+    }
 };
 
 int main() {
