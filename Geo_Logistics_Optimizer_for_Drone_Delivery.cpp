@@ -135,7 +135,7 @@ class CustomStack {
         }
         NodeRute* temp = top; // Simpan alamat top
         top = top->next; // Geser top ke node di bawahnya
-        cout << "Rute " << top->namaTujuan << " berhasil di hapus!" << endl;
+        cout << "Rute " << temp->namaTujuan << " berhasil di hapus!" << endl;
         delete temp; // Membersihkan memori dari node yang di hapus 
     }
 
@@ -143,14 +143,17 @@ class CustomStack {
     void peek() {
         if(isEmpty()) {
             cout << "Riwayat masih kosong!" << endl;
+            return;
         }
         cout << "Riwayat rute terakhir: " << top->namaTujuan << endl;
     }
 
     // Destructor untuk membersihkan sisa memori dari objek yang hancur (sudah di hapus)
     ~CustomStack() {
-        if(!isEmpty()) {
-            pop();
+        while(!isEmpty()) {
+            NodeRute* temp = top;
+            top = top->next;
+            delete temp;
         }
     }
 };
@@ -159,21 +162,19 @@ int main() {
 
 CustomQueue antrianPaket;
 
-cout << "=== UJI COBA QUEUE ==" << endl;
-antrianPaket.enqueue(10);
-antrianPaket.enqueue(20);
-antrianPaket.enqueue(30);
-antrianPaket.enqueue(40);
-antrianPaket.enqueue(50);
+cout << "=== UJI COBA STACK ==" << endl;
+CustomStack rutePaket;
 
-antrianPaket.tampilkanqueue();
-antrianPaket.peek();
+rutePaket.push('A');
+rutePaket.push('B');
+rutePaket.push('C');
+cout << "Elemen teratas: " << endl;
+rutePaket.peek();
 
-cout << "=== UJI COBA DEQUEUE ==" << endl;
-antrianPaket.dequeue();
-antrianPaket.dequeue();
-antrianPaket.tampilkanqueue();
-antrianPaket.peek();
+rutePaket.pop();
+cout << "Elemen teratas setelah pop: " << endl;
+rutePaket.peek();
+
 
     return 0;
 }
