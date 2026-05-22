@@ -267,6 +267,16 @@ void displayBackward() {
     }
     cout << "NULL" << endl;
 }
+
+// Membersihkan untuk membersihkan memori saat program selesai
+~DoublyLinkedList() {
+    DroneAktif* current = Head;
+    while(current != nullptr) {
+        DroneAktif* nextNode = current->next;
+        delete current;
+        current = nextNode;
+    }
+}
 };
 
 int main() {
