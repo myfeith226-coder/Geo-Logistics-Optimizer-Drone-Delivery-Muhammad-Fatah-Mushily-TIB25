@@ -245,6 +245,17 @@ if(current == Head) {
 
 delete current; // Hapus data dari memori
 }
+
+// Menampilkan data drone aktif dari depan ke belakang
+void displayForward() {
+    DroneAktif* current = Head;
+    cout << "Drone Aktif(Depan): ";
+    while(current != nullptr) {
+        cout << current->droneAktif << "-> ";
+        current = current->next;
+    }
+    cout << "NULL" << endl;
+}
 };
 
 int main() {
