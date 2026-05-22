@@ -209,7 +209,42 @@ if(Head == nullptr) {
 }
 }
 
+// Menghapus data
+void deleteData(string value) {
+if(Head == nullptr) {
+    cout << "Data drone aktif: kosong | tidak ada yang bisa di hapus" << endl;
+    return;
+}
 
+// Mencari data berdasarkan nilai yang di cari
+DroneAktif* current = Head;
+if(current != nullptr && current->droneAktif != value) {
+    current = current->next;
+}
+
+if(current == nullptr) { //Kondisi jika data tidak di temukan
+    cout << "Data drone tidak di temukan!" << endl;
+    return;
+}
+
+// Kondisi jika yang di hapus adalah head
+if(current == Head) {
+    Head = current->next;
+    if(Head != nullptr) {
+        Head->prev = nullptr;
+    } else {
+        Tail = nullptr; // Jika list menjadi kosong
+    }
+} else if(current == Tail) {  //Kondisi jika yang dihapus adalah Tail
+    Tail = current->next;
+    Tail->next = nullptr;
+} else {
+    current->prev->next = current->next;
+    current->next->prev = current->prev;
+}
+
+delete current; // Hapus data dari memori
+}
 };
 
 int main() {
