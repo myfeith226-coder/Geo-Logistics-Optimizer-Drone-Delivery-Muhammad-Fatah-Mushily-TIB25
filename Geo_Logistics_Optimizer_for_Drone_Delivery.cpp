@@ -218,7 +218,7 @@ if(Head == nullptr) {
 
 // Mencari data berdasarkan nilai yang di cari
 DroneAktif* current = Head;
-if(current != nullptr && current->droneAktif != value) {
+while(current != nullptr && current->droneAktif != value) {
     current = current->next;
 }
 
@@ -236,7 +236,7 @@ if(current == Head) {
         Tail = nullptr; // Jika list menjadi kosong
     }
 } else if(current == Tail) {  //Kondisi jika yang dihapus adalah Tail
-    Tail = current->next;
+    Tail = current->prev;
     Tail->next = nullptr;
 } else {
     current->prev->next = current->next;
@@ -259,7 +259,7 @@ void displayForward() {
 
 // Menampilkan data dari belakang ke depan
 void displayBackward() {
-    DroneAktif* current = Head;
+    DroneAktif* current = Tail;
     cout << "Drone Aktif (Belakang): ";
     while(current != nullptr) {
         cout << current->droneAktif << "-> ";
@@ -281,21 +281,20 @@ void displayBackward() {
 
 int main() {
 
-CustomQueue antrianPaket;
+DoublyLinkedList list;
 
-cout << "=== UJI COBA STACK ==" << endl;
-CustomStack rutePaket;
+list.insertEnd("Drone1");
+list.insertEnd("Drone2");
+list.insertEnd("Drone3");
+list.insertFront("Drone4");
 
-rutePaket.push('A');
-rutePaket.push('B');
-rutePaket.push('C');
-cout << "Elemen teratas: " << endl;
-rutePaket.peek();
+list.displayForward();
+list.displayBackward();
 
-rutePaket.pop();
-cout << "Elemen teratas setelah pop: " << endl;
-rutePaket.peek();
+list.deleteData("Drone3");
 
+cout << "Menghapus Drone3" << endl;
+list.displayForward();
 
     return 0;
 }
