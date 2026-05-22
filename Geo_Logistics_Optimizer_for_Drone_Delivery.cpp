@@ -24,13 +24,31 @@ DroneAktif* prev;
 class DoublyLinkedList { // Class Doubly LinkedList
 private:
 DroneAktif* Head;
-DroneAktif* Prev;
+DroneAktif* Tail;
 
 public:
 DoublyLinkedList() { //Inisialisasi node Prev(Head) dan node next(Prev)
     Head = nullptr;
-    Prev = nullptr;
+    Tail = nullptr;
 }
+
+void insertEnd(string droneAktif) { //Menambah data drone yang aktif di belakang(Tail)
+DroneAktif* newnode = new DroneAktif();
+newnode->droneAktif = droneAktif;
+newnode->next = nullptr;
+newnode->prev = nullptr;
+
+if(Head == nullptr) {
+    Head = newnode;
+    Tail = newnode;
+} else {
+    Tail->next = newnode;
+    newnode->prev = Tail;
+    Tail = newnode;
+}
+}
+
+
 };
 
 class CustomQueue {
