@@ -256,6 +256,17 @@ void displayForward() {
     }
     cout << "NULL" << endl;
 }
+
+// Menampilkan data dari belakang ke depan
+void displayBackward() {
+    DroneAktif* current = Head;
+    cout << "Drone Aktif (Belakang): ";
+    while(current != nullptr) {
+        cout << current->droneAktif << "-> ";
+        current = current->prev;
+    }
+    cout << "NULL" << endl;
+}
 };
 
 int main() {
