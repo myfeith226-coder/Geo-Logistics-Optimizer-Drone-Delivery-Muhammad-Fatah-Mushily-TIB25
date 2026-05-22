@@ -166,7 +166,7 @@ class CustomStack {
     }
 };
 
-class DoublyLinkedList { // Class Doubly LinkedList
+class DoublyLinkedList { // Class Doubly LinkedList untuk data drone yang aktif
 private:
 DroneAktif* Head;
 DroneAktif* Tail;
@@ -257,7 +257,7 @@ void displayForward() {
     cout << "NULL" << endl;
 }
 
-// Menampilkan data dari belakang ke depan
+// Menampilkan data drone aktif dari belakang ke depan
 void displayBackward() {
     DroneAktif* current = Tail;
     cout << "Drone Aktif (Belakang): ";
@@ -279,22 +279,64 @@ void displayBackward() {
 }
 };
 
+// Fungsi tukar paket
+void tukar(int& a, int& b) {
+    int temp = a;
+    a  = b;
+    b = temp;
+}
+
+//  partisi quicksort
+int partisi(int arr[], int ringan, int berat) {
+    int pivot = arr[berat]; // pivot di ambil dari elemen terakhir
+    int i = ringan - 1;
+    for(int j = ringan; j < berat; j++) {
+        if(arr[j] < pivot) {
+            i++;
+            tukar(arr[i], arr[j]);
+        }
+    }
+    tukar(arr[i + 1], arr[berat]);
+    return i + 1;
+}
+
+void quicksort(int arr[], int ringan, int berat) {
+    if(ringan < berat) {
+        int p = partisi(arr, ringan, berat);
+        quicksort(arr, ringan, p - 1);
+        quicksort(arr, p + 1, berat);
+    }
+}
+
 int main() {
 
+int n;
+string nama_paket;    
+
 DoublyLinkedList list;
+CustomStack stack;
+CustomQueue antrian;
 
-list.insertEnd("Drone1");
-list.insertEnd("Drone2");
-list.insertEnd("Drone3");
-list.insertFront("Drone4");
+cout << "Masukkan jumlah paket yang masuk: ";
+cin >> n;
 
-list.displayForward();
-list.displayBackward();
+//Array dinamis di memory heap
+int* dataPaket = new int[n];
 
-list.deleteData("Drone3");
+cout << "Masukkan " << n << " ukuran paket:" << endl;
+for(int i = 0; i < n; i++) {
+    cout << "Ukuran paket ke- " << i + 1 << ": ";
+    cin >> dataPaket[i];
+}
 
-cout << "Menghapus Drone3" << endl;
-list.displayForward();
+quicksort(dataPaket, 0, n - 1);
 
+cout << "Hasil pengurutan: " << endl;
+for(int i = 0; i < n; i++) {
+    cout << dataPaket[i] << " ";
+}
+cout << endl;
+
+delete[] dataPaket;
     return 0;
 }
