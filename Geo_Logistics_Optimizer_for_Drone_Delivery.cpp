@@ -21,35 +21,6 @@ DroneAktif* next;
 DroneAktif* prev;
 };
 
-class DoublyLinkedList { // Class Doubly LinkedList
-private:
-DroneAktif* Head;
-DroneAktif* Tail;
-
-public:
-DoublyLinkedList() { //Inisialisasi node Prev(Head) dan node next(Prev)
-    Head = nullptr;
-    Tail = nullptr;
-}
-
-void insertEnd(string droneAktif) { //Menambah data drone yang aktif di belakang(Tail)
-DroneAktif* newnode = new DroneAktif();
-newnode->droneAktif = droneAktif;
-newnode->next = nullptr;
-newnode->prev = nullptr;
-
-if(Head == nullptr) {
-    Head = newnode;
-    Tail = newnode;
-} else {
-    Tail->next = newnode;
-    newnode->prev = Tail;
-    Tail = newnode;
-}
-}
-
-
-};
 
 class CustomQueue {
     private:
@@ -193,6 +164,52 @@ class CustomStack {
             delete temp;
         }
     }
+};
+
+class DoublyLinkedList { // Class Doubly LinkedList
+private:
+DroneAktif* Head;
+DroneAktif* Tail;
+
+public:
+DoublyLinkedList() { //Inisialisasi node Prev(Head) dan node next(Prev)
+    Head = nullptr;
+    Tail = nullptr;
+}
+
+void insertEnd(string droneAktif) { //Menambah data drone yang aktif di belakang(Tail)
+DroneAktif* newnode = new DroneAktif();
+newnode->droneAktif = droneAktif;
+newnode->next = nullptr;
+newnode->prev = nullptr;
+
+if(Head == nullptr) {
+    Head = newnode;
+    Tail = newnode;
+} else {
+    Tail->next = newnode;
+    newnode->prev = Tail;
+    Tail = newnode;
+}
+}
+
+// Menambah data drone yang aktif di depan (Head)
+void insertFront(string droneAktif) {
+DroneAktif* newnode = new DroneAktif();
+newnode->droneAktif = droneAktif;
+newnode->next = Head;
+newnode->prev = nullptr;
+
+if(Head == nullptr) {
+    Head = newnode;
+    Tail = newnode;
+} else {
+    Head->prev = newnode;
+    Head = newnode;
+}
+}
+
+
 };
 
 int main() {
