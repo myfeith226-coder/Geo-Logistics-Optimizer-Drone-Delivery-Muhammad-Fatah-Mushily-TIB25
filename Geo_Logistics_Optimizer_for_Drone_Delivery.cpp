@@ -14,11 +14,23 @@ struct NodeRute { // Node dasar linkedlist untuk stack
     NodeRute* next;
 };
 
-//Node dasar untuk daftar drone yang aktif
+//Node dasar untuk daftar drone yang aktif Menggunakan doubly linkedlist
 struct DroneAktif {
 string droneAktif;
 DroneAktif* next;
 DroneAktif* prev;
+};
+
+class DoublyLinkedList { // Class Doubly LinkedList
+private:
+DroneAktif* Head;
+DroneAktif* Prev;
+
+public:
+DoublyLinkedList() { //Inisialisasi node Prev(Head) dan node next(Prev)
+    Head = nullptr;
+    Prev = nullptr;
+}
 };
 
 class CustomQueue {
