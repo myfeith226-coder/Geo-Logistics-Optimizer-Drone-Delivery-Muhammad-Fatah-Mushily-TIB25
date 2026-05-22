@@ -14,6 +14,13 @@ struct NodeRute { // Node dasar linkedlist untuk stack
     NodeRute* next;
 };
 
+//Node dasar untuk daftar drone yang aktif
+struct DroneAktif {
+string droneAktif;
+DroneAktif* next;
+DroneAktif* prev;
+};
+
 class CustomQueue {
     private:
     NodePaket *Head;
