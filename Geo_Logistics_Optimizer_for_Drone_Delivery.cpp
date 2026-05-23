@@ -540,6 +540,15 @@ bool search(NodePelanggan* root, int val) {
     }
 }
 
+// Fungsi untuk menampilkan data secara berurutan (In Order Traversal (BST))
+void inorder(NodePelanggan* root) {
+    if(root == nullptr) return;
+
+    inorder(root->left);
+    cout << root->idPelanggan << " ";
+    inorder(root->right);
+}
+
 int main() {
 
 int n, idPaket, target;
