@@ -568,6 +568,21 @@ NodeEdge* createNode(int dest) {
     return newNode;
 }
 
+// Inisialisasi Graph dengan jumlah simpul tertentu
+Graph* createGraph(int vertices) {
+    Graph* graph = new Graph;
+    graph->numVertices = vertices;
+
+    // Alokasi array dari head pointer
+    graph->adjlist = new NodeEdge*[vertices];
+
+    // Inisialisasi semua head pointer menjadi null
+    for(int i = 0; i < vertices; i++) {
+        graph->adjlist[i] = nullptr;
+    }
+    return graph;
+}
+
 int main() {
 
 int n, idPaket, target;
