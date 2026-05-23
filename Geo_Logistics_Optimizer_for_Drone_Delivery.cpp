@@ -2,6 +2,10 @@
 
 using namespace std;
 
+void screen() {
+    cout << "====== GEO-LOGISTIC OPTIMIZER DRONE DELIVERY ======" << endl;
+}
+
 //Node dasar linkedlist untuk queue
 struct NodePaket {
 int idPaket;
@@ -47,7 +51,7 @@ class CustomQueue {
     }
 
     // Menambah elemen ke belakang antrean (enqueue)
-    void enqueue(int idPaket, double bobot = 0.0) {
+    void enqueue(int idPaket, int bobot = 0) {
         NodePaket* nodebaru = new NodePaket();
         nodebaru->idPaket = idPaket;
         nodebaru->bobot = bobot;
@@ -308,15 +312,39 @@ void quicksort(int arr[], int ringan, int berat) {
     }
 }
 
+int binarySearch(int* arr, int IdPaket, int target) {
+    int kiri = 0;
+    int kanan = IdPaket - 1;
+    
+    while(kiri <= kanan) {
+        // rumus menghitumg titik tengah untuk menghindari overflow
+        int tengah = kiri + (kanan - kiri) / 2;
+
+        if(arr[tengah] == target) {
+            return tengah;
+        }
+
+        if(arr[tengah] < target) {
+            kiri = tengah + 1;
+        } else {
+            kanan = tengah - 1;
+        }
+    }
+
+    // Mengembalikan nilai -1 jika data tidak di temukan
+    return -1;
+}
+
 int main() {
 
-int n;
+int n, idPaket, target;
 string nama_paket;    
 
 DoublyLinkedList list;
 CustomStack stack;
 CustomQueue antrian;
 
+cout << "=== TESTING QUICK SORT" << endl;
 cout << "Masukkan jumlah paket yang masuk: ";
 cin >> n;
 
@@ -338,5 +366,31 @@ for(int i = 0; i < n; i++) {
 cout << endl;
 
 delete[] dataPaket;
+cout << "===========================" << endl;
+cout << "===  TESTING SEARCHING  ===" << endl;
+cout << "Masukkan jumlah paket yang masuk: ";
+cin >> idPaket;
+
+int* data = new int[idPaket];
+
+cout << "Masukkan ID paket: ";
+for(int i = 0; i < idPaket; i++) {
+    cout << "Elemen ke- " << i + 1 << ": ";
+    cin >> data[i];
+}
+
+cout << "Masukkan Id Paket yang ingin di cari: ";
+cin >> target;
+
+int hasil = binarySearch(data, idPaket, target);
+
+if(hasil != -1) {
+    cout << "ID Paket berhasil di temukan!" << endl;
+} else {
+    cout << "ID paket tidak di temukan!" << endl;
+}
+
+delete[] data;
+
     return 0;
 }
