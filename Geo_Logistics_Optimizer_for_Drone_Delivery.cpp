@@ -51,7 +51,7 @@ struct NodePelanggan { // Binary Search Tree (BST) untuk manajemen data pelangga
 };
 
 struct NodeEdge { // Node untuk simpul Graph
- int dest;
+ int dest; // variabel untuk simpul
  NodeEdge* next;
 };
 
@@ -581,6 +581,13 @@ Graph* createGraph(int vertices) {
         graph->adjlist[i] = nullptr;
     }
     return graph;
+}
+
+// Menambahkan sisi (Edge) dari asal ke tujuan
+void addEdge(Graph* graph, int src, int dest) { // NOTE: src: simpul asal, dest: simpul tujuan
+    NodeEdge* newnode = createNode(dest);
+    newnode->next = graph->adjlist[src];
+    graph->adjlist[src] = newnode;
 }
 
 int main() {
