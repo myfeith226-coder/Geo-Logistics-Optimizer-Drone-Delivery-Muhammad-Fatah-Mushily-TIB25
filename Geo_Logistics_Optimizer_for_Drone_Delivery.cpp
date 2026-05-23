@@ -389,6 +389,23 @@ void insert(int idPaket, int value) {
     table[index] = newnode;
     size++;
 }
+
+// Operasi Pencarian data (search)
+// Mengembalikan nilai -1, jika key tidak di temukan
+int search(int idPaket) {
+    int index = hashFunction(idPaket);
+    NodeHashTable* current = table[index];
+
+    while(current != nullptr) {
+        if(current->idPaket == idPaket) {
+            return current ->value;
+        }
+        current = current->next;
+    }
+    return -1;
+} 
+
+// Operasi delete (penghapusan data)
 };
 
 // Fungsi tukar paket
