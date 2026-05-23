@@ -528,6 +528,18 @@ NodePelanggan* insert(NodePelanggan* root, int val) {
     return root;
 }
 
+// Fungsi untuk mencari data (BST)
+bool search(NodePelanggan* root, int val) {
+    if(root == nullptr) return false;
+    if(root->idPelanggan == val) return true;
+
+    if(val < root->idPelanggan) {
+        return search(root->left, val);
+    } else {
+        return search(root->right, val);
+    }
+}
+
 int main() {
 
 int n, idPaket, target;
