@@ -36,6 +36,20 @@ struct NodeHashTable {
     NodeHashTable(int k, int v) : idPaket(k), value(v), next(nullptr) {}
 };
 
+struct NodePelanggan { // Binary Search Tree (BST) untuk manajemen data pelanggan 
+    int idPelanggan;
+    NodePelanggan* left;
+    NodePelanggan* right;
+
+    // Konstruktor untuk membuat node baru
+    NodePelanggan(int val) {
+        idPelanggan = val;
+        left = nullptr;
+        right = nullptr;
+    }
+
+};
+
 class CustomQueue {
     private:
     NodePaket *Head;
@@ -505,54 +519,7 @@ string nama_paket;
 DoublyLinkedList list;
 CustomStack stack;
 CustomQueue antrian;
-
-cout << "=== TESTING QUICK SORT" << endl;
-cout << "Masukkan jumlah paket yang masuk: ";
-cin >> n;
-
-//Array dinamis di memory heap
-int* dataPaket = new int[n];
-
-cout << "Masukkan " << n << " ukuran paket:" << endl;
-for(int i = 0; i < n; i++) {
-    cout << "Ukuran paket ke- " << i + 1 << ": ";
-    cin >> dataPaket[i];
-}
-
-quicksort(dataPaket, 0, n - 1);
-
-cout << "Hasil pengurutan: " << endl;
-for(int i = 0; i < n; i++) {
-    cout << dataPaket[i] << " ";
-}
-cout << endl;
-
-delete[] dataPaket;
-cout << "===========================" << endl;
-cout << "===  TESTING SEARCHING  ===" << endl;
-cout << "Masukkan jumlah paket yang masuk: ";
-cin >> idPaket;
-
-int* data = new int[idPaket];
-
-cout << "Masukkan ID paket: ";
-for(int i = 0; i < idPaket; i++) {
-    cout << "Elemen ke- " << i + 1 << ": ";
-    cin >> data[i];
-}
-
-cout << "Masukkan Id Paket yang ingin di cari: ";
-cin >> target;
-
-int hasil = binarySearch(data, idPaket, target);
-
-if(hasil != -1) {
-    cout << "ID Paket berhasil di temukan!" << endl;
-} else {
-    cout << "ID paket tidak di temukan!" << endl;
-}
-
-delete[] data;
+HashTable myMap;
 
     return 0;
 }
