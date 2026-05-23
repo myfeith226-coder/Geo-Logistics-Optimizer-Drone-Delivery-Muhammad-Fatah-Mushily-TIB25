@@ -590,6 +590,19 @@ void addEdge(Graph* graph, int src, int dest) { // NOTE: src: simpul asal, dest:
     graph->adjlist[src] = newnode;
 }
 
+// Menampilkan struktur Graph
+void printGraph(Graph* graph) {
+    for(int v = 0; v < graph->numVertices; v++) {
+        NodeEdge* temp = graph->adjlist[v];
+        cout << "Simpul " << v << " terhubung ke: ";
+        while(temp) {
+            cout << temp->dest << " -> ";
+            temp = temp->next;
+        }
+        cout << "NULL" << endl;
+    }
+}
+
 int main() {
 
 int n, idPaket, target;
