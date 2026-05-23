@@ -1,5 +1,6 @@
 #include <iostream>
 
+
 using namespace std;
 
 void screen() {
@@ -25,6 +26,15 @@ DroneAktif* next;
 DroneAktif* prev;
 };
 
+// Node untuk Hash Table
+struct NodeHashTable {
+    int idPaket; // key
+    int value;
+    NodeHashTable* hashTable[100];
+    NodeHashTable* next;
+
+    NodeHashTable(int k, int v) : idPaket(k), value(v), next(nullptr) {}
+};
 
 class CustomQueue {
     private:
@@ -280,6 +290,104 @@ void displayBackward() {
         delete current;
         current = nextNode;
     }
+}
+};
+
+class HashTable { // class hash table untuk menyimpan paket sesuai ID
+private:
+NodeHashTable** table; //Bucket
+int capacity; // ukuran total kapasitas array
+int size; // jumlah elemen yang tersimpan
+
+int hashFunction(int& idPaket) {
+    int hash = idPaket % 100;
+
+    // Jika key bernilai negatif di jaga tetap positif
+    if(hash < 0) {
+        hash += capacity;
+    }
+    return hash;
+}
+
+// Re hashing manual saat array penuh
+void resize() {
+    int oldCapacity = capacity;
+    capacity *= 2; // Menggandakan ukuran array statis di belakang layar
+
+    NodeHashTable** oldTable = table;
+
+    // Alokasi memori array dinamis baru
+    table = new NodeHashTable*[capacity];
+    for(int i = 0; i < capacity; i++) {
+        table[i] = nullptr; // Inisialisasi table kosong
+    }
+
+    size = 0; // size di reset karena fungsi insert akan menghitung ulang
+    
+    // Memindahkan data dari tabel lama ke tabel baru
+    for(int i = 0; i < oldCapacity; i++) {
+        NodeHashTable* current = oldTable[i];
+        while(current != nullptr) {
+            insert(current->idPaket, current->value); // re hash ke indeks baru
+
+            NodeHashTable* temp = current;
+            current = current->next;
+            delete temp; // Menghapus node lama untuk mencegah kebocoran memori
+        }
+    }
+    delete[] oldTable; // Menghapus array pointer lama
+}
+
+public:
+// Konstruktor
+HashTable(int initCapacity = 100) {
+    capacity = initCapacity;
+    size = 0;
+
+    table = new NodeHashTable*[capacity];
+    for(int i = 0; i < capacity; i++) {
+        table[i] = nullptr;
+    }
+}
+
+// Destructor untuk membersihkan semua memori dinamis
+~HashTable() {
+    for(int i = 0; i < capacity; i++) {
+        NodeHashTable* current = table[i];
+        while(current != nullptr) {
+            NodeHashTable* temp = current;
+            current = current ->next;
+            delete temp;
+        }
+    }
+    delete[] table;
+}
+
+// Operasi penyisipan data (insert / Update)
+void insert(int idPaket, int value) {
+    // Melakukan resize jika load factor mencapai atau melebihi 75%
+    // MEnggunakan perkalia silang untuk menghindari casting float
+    if(size * 4 >= capacity * 3) {
+        resize();
+    }
+
+    int index = hashFunction(idPaket);
+    NodeHashTable* current = table[index];
+
+    // Melakukan update jika key sudah terdaftar
+    while(current != nullptr) {
+        if(current ->idPaket == idPaket) {
+            current->value = value;
+            return;
+        }
+        current = current->next;
+    }
+
+    // Melakukan Chaining (sisipkan data di awal linkedlist) jika key baru
+    NodeHashTable* newnode = new NodeHashTable(idPaket, value);
+    newnode->next = table[index];
+    table[index] = newnode;
+    size++;
 }
 };
 
