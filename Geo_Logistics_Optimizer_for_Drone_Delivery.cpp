@@ -428,6 +428,21 @@ void remove(int idPaket) {
     }
     cout << "ID paket " << idPaket << " tidak di temukan" << endl;
 }
+
+// Fungsi utilitas untuk memantau struktur isi tabel di memori
+void display() {
+    cout << "--- Status Hash Table (Kapasitas: " << capacity << ") ---\n";
+    for(int i = 0; i < capacity; i++) {
+        cout << "Bucket [ " << i << "]: ";
+        NodeHashTable* current = table[i];
+        while(current != nullptr) {
+            cout << "(" << current->idPaket << " -> " << current->value << ") -> ";
+            current = current ->next;
+        }
+        cout << "NULL" << endl;
+    }
+    cout << "---------------------------------------" << endl;
+}
 };
 
 // Fungsi tukar paket
