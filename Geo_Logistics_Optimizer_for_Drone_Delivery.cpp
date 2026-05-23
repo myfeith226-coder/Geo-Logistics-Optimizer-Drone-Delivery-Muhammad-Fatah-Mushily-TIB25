@@ -459,6 +459,7 @@ void display() {
 }
 };
 
+
 // Fungsi tukar paket
 void tukar(int& a, int& b) {
     int temp = a;
@@ -480,6 +481,7 @@ int partisi(int arr[], int ringan, int berat) {
     return i + 1;
 }
 
+// Fungsi Quick Sort
 void quicksort(int arr[], int ringan, int berat) {
     if(ringan < berat) {
         int p = partisi(arr, ringan, berat);
@@ -488,6 +490,7 @@ void quicksort(int arr[], int ringan, int berat) {
     }
 }
 
+// Fungsi Binary Search
 int binarySearch(int* arr, int IdPaket, int target) {
     int kiri = 0;
     int kanan = IdPaket - 1;
@@ -509,6 +512,20 @@ int binarySearch(int* arr, int IdPaket, int target) {
 
     // Mengembalikan nilai -1 jika data tidak di temukan
     return -1;
+}
+
+// Fungsi untuk menambah data baru secara rekursif (BST)
+NodePelanggan* insert(NodePelanggan* root, int val) {
+    if(root == nullptr) {
+        return new NodePelanggan(val);
+    }
+
+    if(val < root->idPelanggan) {
+        root->left = insert(root->left, val);
+    } else if(val > root->idPelanggan) {
+        root->right = insert(root->right, val);
+    }
+    return root;
 }
 
 int main() {
