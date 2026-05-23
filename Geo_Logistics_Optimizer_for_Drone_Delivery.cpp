@@ -50,6 +50,17 @@ struct NodePelanggan { // Binary Search Tree (BST) untuk manajemen data pelangga
 
 };
 
+struct NodeEdge { // Node untuk simpul Graph
+ int dest;
+ NodeEdge* next;
+};
+
+// Node untuk Graph
+struct Graph {
+    int numVertices;
+    NodeEdge** adjlist; // Array dari pointer NodeEdge (Adjacency list)
+};
+
 class CustomQueue {
     private:
     NodePaket *Head;
@@ -549,15 +560,46 @@ void inorder(NodePelanggan* root) {
     inorder(root->right);
 }
 
+// Membuat simpul baru
+NodeEdge* createNode(int dest) {
+    NodeEdge* newNode = new NodeEdge;
+    newNode->dest = dest;
+    newNode->next = nullptr;
+    return newNode;
+}
+
 int main() {
 
 int n, idPaket, target;
 string nama_paket;    
 
-DoublyLinkedList list;
-CustomStack stack;
-CustomQueue antrian;
-HashTable myMap;
+screen();
 
+DoublyLinkedList list; // Objek Linked List
+CustomStack stack; // Objek Stack
+CustomQueue antrian; // Objek Queue
+HashTable myMap; // Objek Hash Table
+
+NodePelanggan* root = nullptr;
+
+root = insert(root, 50);
+insert(root, 30);
+insert(root, 20);
+insert(root, 40);
+insert(root, 70);
+insert(root, 60);
+insert(root, 80);
+
+cout << "Data BST (In Order): ";
+inorder(root);
+cout << endl;
+
+// Menguji fungsi pencarian
+target = 40;
+if(search(root, target)) {
+    cout << "Data " << target << " ditemukan dalam BST" << endl;
+} else {
+    cout << "Data " << target << " tidak di temukan" << endl;
+}
     return 0;
 }
