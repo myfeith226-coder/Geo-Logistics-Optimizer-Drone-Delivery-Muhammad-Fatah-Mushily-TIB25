@@ -405,7 +405,29 @@ int search(int idPaket) {
     return -1;
 } 
 
-// Operasi delete (penghapusan data)
+// Operasi penghapusan data (delete)
+void remove(int idPaket) {
+    int index = hashFunction(idPaket);
+    NodeHashTable* current = table[index];
+    NodeHashTable* prev = nullptr;
+
+    while(current != nullptr) {
+        if(current ->idPaket == idPaket) {
+            if(prev == nullptr) {
+                table[index] = current->next; // Node berada di kepala list
+            } else {
+                prev->next = current->next; // Node berada di tengah list
+            }
+            delete current;
+            size--;
+            cout << "ID paket " << idPaket << " berhasil di hapus" << endl;
+            return;
+        }
+        prev = current;
+        current = current ->next;
+    }
+    cout << "ID paket " << idPaket << " tidak di temukan" << endl;
+}
 };
 
 // Fungsi tukar paket
